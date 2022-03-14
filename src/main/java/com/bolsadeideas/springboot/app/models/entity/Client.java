@@ -25,6 +25,7 @@ public class Client implements Serializable {
     private String name;
     private String lastname;
     private String email;
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "created_date") //Para customizar el nombre de la columna o cualquier tipo de especificacion del campo
