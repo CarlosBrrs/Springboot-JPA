@@ -31,6 +31,18 @@ public class Client implements Serializable {
     @Temporal(TemporalType.DATE) //Para definir si se guarda fecha, hora, o fechahora
     private Date createdDate;
 
+    public Client() {
+    }
+
+    public Client(Long id, String name, String lastname, String email, String phoneNumber, Date createdDate) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.createdDate = createdDate;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
