@@ -11,4 +11,6 @@ public interface ClientDAO {
     void save(Client client);
 
     Client findById(Long id);
+
+    void delete(Long id);
 }

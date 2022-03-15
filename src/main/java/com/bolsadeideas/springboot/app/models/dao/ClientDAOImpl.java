@@ -36,7 +36,14 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
+    @Transactional
     public Client findById(Long id) {
         return entityManager.find(Client.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        entityManager.remove(findById(id));
     }
 }

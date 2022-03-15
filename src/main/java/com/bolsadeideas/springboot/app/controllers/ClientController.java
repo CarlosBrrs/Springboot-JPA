@@ -67,4 +67,12 @@ public class ClientController {
         model.put("client", client);
         return "form";
     }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteClient(@PathVariable Long id) {
+        if (id > 0) {
+            clientDAO.delete(id);
+        }
+        return "redirect:/clients";
+    }
 }
