@@ -1,10 +1,10 @@
-package com.bolsadeideas.springboot.app.models.dao;
+package com.bolsadeideas.springboot.app.services;
 
 import com.bolsadeideas.springboot.app.models.entity.Client;
 
 import java.util.List;
 
-public interface ClientDAO {
+public interface ClientService {
 
     List<Client> findAll();
 

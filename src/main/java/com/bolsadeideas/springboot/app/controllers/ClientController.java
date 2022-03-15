@@ -2,6 +2,7 @@ package com.bolsadeideas.springboot.app.controllers;
 
 import com.bolsadeideas.springboot.app.models.dao.ClientDAO;
 import com.bolsadeideas.springboot.app.models.entity.Client;
+import com.bolsadeideas.springboot.app.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +22,17 @@ import java.util.Map;
 @SessionAttributes("client")
 public class ClientController {
 
+    /*Se inyecta el servicio, no el DAO
     @Autowired
-    private ClientDAO clientDAO;
+    private ClientDAO clientDAO;*/
+
+    @Autowired
+    private ClientService clientService;
 
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
     public String getClients(Model model) {
         model.addAttribute("title", "Clients list");
-        model.addAttribute("clients", clientDAO.findAll());
+        model.addAttribute("clients", clientService.findAll());
         return "clients";
     }
 
@@ -50,7 +55,7 @@ public class ClientController {
         //El client me lo trae del metodo createClient con un client null o del metodo findClientById con un client lleno
         //El save implementa el crear nuevo o actualizar dependiendo de donde venga el client
         //Se necesita el SessionAtributtes ya que al momento de enviar el formulario, con los datos, el id va a ser null, no vacio ni lleno, y lanzará error
-        clientDAO.save(client);
+        clientService.save(client);
         status.setComplete();
         return "redirect:/clients";
     }
@@ -60,11 +65,19 @@ public class ClientController {
 
         Client client = null;
         if (id > 0) {
-            client = clientDAO.findById(id);
+            client = clientService.findById(id);
         } else return "redirect:/clients";
 
         model.put("title", "Edit client");
         model.put("client", client);
         return "form";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteClient(@PathVariable Long id) {
+        if (id > 0) {
+            clientService.delete(id);
+        }
+        return "redirect:/clients";
     }
 }
