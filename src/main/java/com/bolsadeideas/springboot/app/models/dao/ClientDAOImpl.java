@@ -14,6 +14,7 @@ public class ClientDAOImpl implements ClientDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    //El entity manager identifica la tabla que tiene mapeada la clase a la que hace referencia la operación
     @Override
     @Transactional
     public List<Client> findAll() {
@@ -23,6 +24,19 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     @Transactional
     public void save(Client client) {
-        entityManager.persist(client);
+
+        //El cliente no es null, y su id es mayor que 0 ?
+        if (client != null && client.getId() > 0) {
+            //actualiza con merge (cuando al método lo llama el edit) :
+            entityManager.merge(client);
+            // persiste el nuevo cliente
+        } else {
+            entityManager.persist(client);
+        }
+    }
+
+    @Override
+    public Client findById(Long id) {
+        return entityManager.find(Client.class, id);
     }
 }

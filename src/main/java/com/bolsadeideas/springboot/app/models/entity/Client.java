@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +41,8 @@ public class Client implements Serializable {
     @NotEmpty
     private String phoneNumber;
 
-    @Column(name = "created_date") //Para customizar el nombre de la columna o cualquier tipo de especificacion del campo
+    @Column(name = "created_date")
+    //Para customizar el nombre de la columna o cualquier tipo de especificacion del campo
     @Temporal(TemporalType.DATE) //Para definir si se guarda fecha, hora, o fechahora
     @DateTimeFormat(pattern = "yyyy-MM-dd") //Este formato será aceptado desde la vista y lo formateará al tipo Date
     @NotNull
