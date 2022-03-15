@@ -11,6 +11,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,15 +28,24 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String lastname;
+
+    @NotEmpty
+    @Email
     private String email;
+
     @Column(name = "phone_number")
+    @NotEmpty
     private String phoneNumber;
 
     @Column(name = "created_date") //Para customizar el nombre de la columna o cualquier tipo de especificacion del campo
     @Temporal(TemporalType.DATE) //Para definir si se guarda fecha, hora, o fechahora
     @DateTimeFormat(pattern = "yyyy-MM-dd") //Este formato será aceptado desde la vista y lo formateará al tipo Date
+    @NotNull
     private Date createdDate;
 
 /*Se comenta para pasar la fecha desde la vista
