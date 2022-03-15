@@ -16,13 +16,11 @@ public class ClientDAOImpl implements ClientDAO {
 
     //El entity manager identifica la tabla que tiene mapeada la clase a la que hace referencia la operación
     @Override
-    @Transactional
     public List<Client> findAll() {
         return entityManager.createQuery("from Client").getResultList();
     }
 
     @Override
-    @Transactional
     public void save(Client client) {
 
         //El cliente no es null, y su id es mayor que 0 ?
@@ -36,13 +34,11 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    @Transactional
     public Client findById(Long id) {
         return entityManager.find(Client.class, id);
     }
 
     @Override
-    @Transactional
     public void delete(Long id) {
         entityManager.remove(findById(id));
     }
