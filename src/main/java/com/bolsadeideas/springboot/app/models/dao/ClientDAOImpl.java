@@ -19,4 +19,10 @@ public class ClientDAOImpl implements ClientDAO {
     public List<Client> findAll() {
         return entityManager.createQuery("from Client").getResultList();
     }
+
+    @Override
+    @Transactional
+    public void save(Client client) {
+        entityManager.persist(client);
+    }
 }
