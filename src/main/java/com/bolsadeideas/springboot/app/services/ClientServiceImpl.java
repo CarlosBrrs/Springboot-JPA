@@ -29,6 +29,18 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional(readOnly = true)
     public Client findById(Long id) {
+        return clientDAO.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        clientDAO.deleteById(id);
+    }
+    /*Para implementacion de ClientDAO con entityManager
+    @Override
+    @Transactional(readOnly = true)
+    public Client findById(Long id) {
         return clientDAO.findById(id);
     }
 
@@ -36,5 +48,5 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public void delete(Long id) {
         clientDAO.delete(id);
-    }
+    }*/
 }
