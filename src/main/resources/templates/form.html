@@ -31,27 +31,40 @@
     <h1 class="text-primary border border-success border-top-0 border-left-0 border-right-0" th:text="${title}"></h1>
 
     <form th:action="@{/form}" th:object="${client}" method="post">
-        <table class="table table-bordered">
-            <tr>
-                <td style="width: 200px">Name:</td>
-                <td><input type="text" th:field="*{name}" class="form-control"/></td>
-            </tr>
-            <tr>
-                <td>Lastname:</td>
-                <td><input type="text" th:field="*{lastname}" class="form-control"/></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input type="text" th:field="*{email}" class="form-control"/></td>
-            </tr>
-            <tr>
-                <td>Phone number:</td>
-                <td><input type="text" th:field="*{phoneNumber}" class="form-control"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Create new client" class="btn btn-primary"/></td>
-            </tr>
-        </table>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="*{name}" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Lastname:</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="*{lastname}" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="*{email}" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Phone number:</label>
+            <div class="col-sm-5">
+                <input type="text" th:field="*{phoneNumber}" class="form-control"/>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <input type="submit" value="Create new client" class="btn btn-primary"/>
+                </div>
+        </div>
         <input type="hidden" th:field="*{id}" disabled/>
 
     </form>
