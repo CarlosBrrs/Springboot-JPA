@@ -1,5 +1,5 @@
 package com.bolsadeideas.springboot.app.models.dao;
-
+/* Se usa cuando se implementa el ClientDAO sin heredar de JpaRepository
 import com.bolsadeideas.springboot.app.models.entity.Client;
 import org.springframework.stereotype.Repository;
 
@@ -43,3 +43,5 @@ public class ClientDAOImpl implements ClientDAO {
         entityManager.remove(findById(id));
     }
 }
+
+ */
