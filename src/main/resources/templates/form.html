@@ -35,35 +35,40 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Name:</label>
             <div class="col-sm-5">
-                <input type="text" th:field="*{name}" class="form-control"/>
+                <input type="text" th:field="*{name}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="form-text text-danger"></small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Lastname:</label>
             <div class="col-sm-5">
-                <input type="text" th:field="*{lastname}" class="form-control"/>
+                <input type="text" th:field="*{lastname}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                <small th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="form-text text-danger"></small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-5">
-                <input type="text" th:field="*{email}" class="form-control"/>
+                <input type="text" th:field="*{email}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="form-text text-danger"></small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Phone number:</label>
             <div class="col-sm-5">
-                <input type="text" th:field="*{phoneNumber}" class="form-control"/>
+                <input type="text" th:field="*{phoneNumber}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                <small th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="form-text text-danger"></small>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Date:</label>
             <div class="col-sm-5">
-                <input type="text" th:field="*{createdDate}" class="form-control"/>
+                <input type="text" th:field="*{createdDate}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+                <small th:if="${#fields.hasErrors('createdDate')}" th:errors="*{createdDate}" class="form-text text-danger"></small>
             </div>
         </div>
 
@@ -73,7 +78,7 @@
             </div>
         </div>
 
-        <input type="hidden" th:field="*{id}" disabled/>
+        <input type="hidden" th:field="*{id}"/>
 
     </form>
 </div>

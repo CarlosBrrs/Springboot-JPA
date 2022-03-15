@@ -5,11 +5,13 @@ import com.bolsadeideas.springboot.app.models.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -34,7 +36,14 @@ public class ClientController {
     }
 
     @PostMapping("/form")
-    public String saveClient(Client client) {
+    public String saveClient(@Valid Client client, BindingResult result, Model model) {
+
+
+        if (result.hasErrors()){
+            //El cliente se pasa de forma automática si tiene el mismo nombre en la Clase y en el key
+            model.addAttribute("title", "Please refill the form correctly");
+            return "form";
+        }
         clientDAO.save(client);
         return "redirect:/clients";
     }
