@@ -9,4 +9,6 @@ public interface ClientDAO {
     List<Client> findAll();
 
     void save(Client client);
+
+    Client findById(Long id);
 }
