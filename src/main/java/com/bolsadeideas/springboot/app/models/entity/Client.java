@@ -1,5 +1,7 @@
 package com.bolsadeideas.springboot.app.models.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,12 +33,14 @@ public class Client implements Serializable {
 
     @Column(name = "created_date") //Para customizar el nombre de la columna o cualquier tipo de especificacion del campo
     @Temporal(TemporalType.DATE) //Para definir si se guarda fecha, hora, o fechahora
+    @DateTimeFormat(pattern = "yyyy-MM-dd") //Este formato será aceptado desde la vista y lo formateará al tipo Date
     private Date createdDate;
 
+/*Se comenta para pasar la fecha desde la vista
     @PrePersist //Se ejecutará el método justo antes de invocar el metodo persist e insertar el registro en la base de datos
     public void prePersist() {
         this.createdDate = new Date();
-    }
+    }*/
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
