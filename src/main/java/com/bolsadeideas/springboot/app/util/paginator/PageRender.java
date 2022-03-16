@@ -35,11 +35,11 @@ public class PageRender<T> {
         this.url = url;
         this.page = page;
 
-        this.pages = new ArrayList<PageItem>();
+        pages = new ArrayList<PageItem>();
 
-        this.elementsInPage = page.getSize();
-        this.totalPages = page.getTotalPages();
-        this.actualPage = page.getNumber() + 1;
+        elementsInPage = page.getSize();
+        totalPages = page.getTotalPages();
+        actualPage = page.getNumber() + 1;
 
         int from,  to;
 
@@ -51,7 +51,7 @@ public class PageRender<T> {
                 from = 1;
                 to = elementsInPage;
             } else if (actualPage >= totalPages - elementsInPage/2) {
-                from = totalPages - elementsInPage;
+                from = totalPages - elementsInPage +1;
                 to = elementsInPage;
             } else {
                 from = actualPage - elementsInPage/2;

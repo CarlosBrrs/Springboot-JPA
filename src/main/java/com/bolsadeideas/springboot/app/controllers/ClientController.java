@@ -3,6 +3,7 @@ package com.bolsadeideas.springboot.app.controllers;
 import com.bolsadeideas.springboot.app.models.dao.ClientDAO;
 import com.bolsadeideas.springboot.app.models.entity.Client;
 import com.bolsadeideas.springboot.app.services.ClientService;
+import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,11 +41,15 @@ public class ClientController {
         Pageable pageRequest = PageRequest.of(page, 4);
         Page<Client> clientsPage = clientService.findAll(pageRequest);
 
+        PageRender<Client> pageRender = new PageRender<>("/clients", clientsPage);
+
         model.addAttribute("title", "Clients list");
         //model.addAttribute("clients", clientService.findAll()); Me muestra todos los clientes en una pagina
 
         //Me pagina la lista de e clientes
         model.addAttribute("clients", clientsPage);
+
+        model.addAttribute("page", pageRender);
         return "clients";
     }
 
