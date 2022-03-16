@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -45,28 +46,38 @@ public class ClientController {
     }
 
     @PostMapping("/form")
-    public String saveClient(@Valid Client client, BindingResult result, Model model, SessionStatus status) {
+    public String saveClient(@Valid Client client, BindingResult result, Model model, SessionStatus status, RedirectAttributes flashMessages) {
 
         if (result.hasErrors()) {
             //El cliente se pasa de forma automática si tiene el mismo nombre en la Clase y en el key
             model.addAttribute("title", "Please refill the form correctly");
             return "form";
         }
+        String message = client.getId() != null ? "Client edited successfully" : "Client created successfully";
         //El client me lo trae del metodo createClient con un client null o del metodo findClientById con un client lleno
         //El save implementa el crear nuevo o actualizar dependiendo de donde venga el client
         //Se necesita el SessionAtributtes ya que al momento de enviar el formulario, con los datos, el id va a ser null, no vacio ni lleno, y lanzará error
         clientService.save(client);
         status.setComplete();
+        flashMessages.addFlashAttribute("success", message);
         return "redirect:/clients";
     }
 
     @RequestMapping("/form/{id}")
-    public String findClientById(@PathVariable Long id, Map<String, Object> model) {
+    public String findClientById(@PathVariable Long id, Map<String, Object> model, RedirectAttributes flashMessages) {
 
         Client client = null;
+
         if (id > 0) {
             client = clientService.findById(id);
-        } else return "redirect:/clients";
+            if (client == null){ //Si el id no es cero pero es muy grande y no está en BD traerá un client null
+                flashMessages.addFlashAttribute("error", "Client does not exist in our DB");
+                return "redirect:/clients";
+            }
+        } else{
+            flashMessages.addFlashAttribute("error", "Client ID cannot be zero");
+            return "redirect:/clients";
+        }
 
         model.put("title", "Edit client");
         model.put("client", client);
@@ -74,9 +85,10 @@ public class ClientController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteClient(@PathVariable Long id) {
+    public String deleteClient(@PathVariable Long id, RedirectAttributes flashMessages) {
         if (id > 0) {
             clientService.delete(id);
+            flashMessages.addFlashAttribute("success", "Client deleted successfully");
         }
         return "redirect:/clients";
     }
