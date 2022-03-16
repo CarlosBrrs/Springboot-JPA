@@ -4,6 +4,9 @@ import com.bolsadeideas.springboot.app.models.dao.ClientDAO;
 import com.bolsadeideas.springboot.app.models.entity.Client;
 import com.bolsadeideas.springboot.app.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,9 +35,16 @@ public class ClientController {
     private ClientService clientService;
 
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
-    public String getClients(Model model) {
+    public String getClients(@RequestParam(defaultValue = "0") int page, Model model) {
+
+        Pageable pageRequest = PageRequest.of(page, 4);
+        Page<Client> clientsPage = clientService.findAll(pageRequest);
+
         model.addAttribute("title", "Clients list");
-        model.addAttribute("clients", clientService.findAll());
+        //model.addAttribute("clients", clientService.findAll()); Me muestra todos los clientes en una pagina
+
+        //Me pagina la lista de e clientes
+        model.addAttribute("clients", clientsPage);
         return "clients";
     }
 
